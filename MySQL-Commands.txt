@@ -1,0 +1,266 @@
+/********************************************************************
+DATABASE OPERATIONS
+********************************************************************/
+
+-- Create a new database named 'krishn'
+CREATE DATABASE krishn;
+
+-- Create a new database only if it does not exist
+CREATE DATABASE IF NOT EXISTS krishn;
+
+-- Select and use the specified database 'krishn'
+USE krishn;
+
+-- Display all available databases in the system
+SHOW DATABASES;
+
+-- Display all tables within the current database
+SHOW TABLES;
+
+-- Delete the specified database 'krishn'
+DROP DATABASE krishn;
+
+-- Delete the specified database 'krishn' only if it exists
+DROP DATABASE IF EXISTS krishn;
+
+-- Delete the table 'radha' in the current database
+DROP TABLE radha;
+
+
+/********************************************************************
+TABLE CREATION AND CONSTRAINTS
+********************************************************************/
+
+-- Create a table named 'Student' with three columns
+CREATE TABLE Student (
+    ID INT PRIMARY KEY,        -- ID column as primary key
+    Name VARCHAR(50),          -- Name column with maximum length of 50 characters
+    Age INT NOT NULL           -- Age column which cannot be null
+);
+
+-- Another way to create the same 'Student' table but defining primary key at the end
+CREATE TABLE Student (
+    ID INT,                    -- ID column
+    Name VARCHAR(50),          -- Name column
+    Age INT,                   -- Age column
+    PRIMARY KEY (ID)           -- Define the primary key constraint on the ID column
+);
+
+-- Create a table named 'TEMP' and make 'cust_id' a foreign key referencing 'customer' table's 'id' column
+CREATE TABLE TEMP(
+    cust_id INT,               -- Customer ID column
+    FOREIGN KEY (cust_id) REFERENCES customer(id)  -- Define foreign key constraint
+);
+
+-- Create a table named 'emp' with a default value for the 'salary' column
+CREATE TABLE emp(
+    cust_id INT,               -- Customer ID column
+    salary FLOAT DEFAULT 25000 -- Salary column with a default value of 25000
+);
+
+-- Create a table named 'emp' and apply a CHECK constraint on the 'age' column to allow values 18 or higher
+CREATE TABLE emp(
+    cust_id INT,               -- Customer ID column
+    age INT CHECK (age >= 18)  -- Age column with a CHECK constraint ensuring age >= 18
+);
+
+-- Create the 'TEMP' table with cascading options for updating and deleting
+CREATE TABLE TEMP(
+    cust_id INT,               -- Customer ID column
+    FOREIGN KEY (cust_id) REFERENCES customer(id) 
+    ON UPDATE CASCADE          -- Apply CASCADE for updates
+    ON DELETE CASCADE          -- Apply CASCADE for deletes
+);
+
+
+/********************************************************************
+DATA RETRIEVAL - SELECT QUERIES
+********************************************************************/
+
+-- Display all rows and columns from the 'Student' table
+SELECT * FROM Student;
+
+-- Display only the 'city' column from the 'student' table
+SELECT city FROM student;
+
+-- Display distinct values from the 'city' column to avoid duplicates
+SELECT DISTINCT city FROM student;
+
+-- Select all rows where the city is 'Mumbai' and mark is greater than 80
+SELECT * FROM student WHERE city = "mumbai" AND mark > 80;
+
+-- Select all rows where either the city is 'Mumbai' or mark is greater than 80
+SELECT * FROM student WHERE city = "mumbai" OR mark > 80;
+
+-- Select all rows where the 'mark' is between 80 and 90 (inclusive)
+SELECT * FROM student WHERE mark BETWEEN 80 AND 90;
+
+-- Select all rows where the city is either 'Mumbai' or 'Delhi'
+SELECT * FROM student WHERE city IN ("mumbai", "delhi");
+
+-- Select all rows where the city is neither 'Mumbai' nor 'Delhi'
+SELECT * FROM student WHERE city NOT IN ("mumbai", "delhi");
+
+-- Display only the first 3 rows from the 'student' table
+SELECT * FROM student LIMIT 3;
+
+-- Display the first 3 rows where the 'mark' is greater than 90
+SELECT * FROM student WHERE mark > 90 LIMIT 3;
+
+-- Display all rows ordered by 'mark' in descending order
+SELECT * FROM student ORDER BY mark DESC;
+
+-- Get the maximum value of 'mark' in the 'student' table
+SELECT MAX(mark) FROM student;
+
+-- Get the minimum value of 'mark' in the 'student' table
+SELECT MIN(mark) FROM student;
+
+-- Calculate the average 'mark' of all students
+SELECT AVG(mark) FROM student;
+
+-- Count the number of rows in the 'student' table using 'rollno'
+SELECT COUNT(rollno) FROM student;
+
+-- Calculate the total of 'mark' for students who have marks greater than 90
+SELECT SUM(mark) FROM student WHERE mark > 90;
+
+-- Group the students by city and get the average mark for each city
+SELECT city, AVG(mark) FROM student GROUP BY city;
+
+-- Group the students by city and return only those with an average mark greater than 60
+SELECT city FROM student GROUP BY city HAVING AVG(mark) > 60;
+
+-- Complex query that groups by city and only shows cities where the maximum mark for students with grade 'A' is greater than 90, and orders the results by city in descending order
+SELECT city FROM student WHERE grade = "A" GROUP BY city HAVING MAX(mark) > 90 ORDER BY city DESC;
+
+
+/********************************************************************
+INSERT QUERIES
+********************************************************************/
+
+-- Insert a single row into the 'Student' table
+INSERT INTO Student VALUES (103, "Sudama", 107);
+
+-- Insert only one column (ID) in the 'Student' table
+INSERT INTO Student (ID) VALUES (103);
+
+-- Insert multiple rows into the 'Student' table
+INSERT INTO Student 
+(ID, Name, Age)
+VALUES
+(101, "Krishn", 101),
+(102, "Radha", 101),
+(103, "Sudama", 107);
+
+
+/********************************************************************
+UPDATE QUERIES
+********************************************************************/
+
+-- Increase the 'mark' value by 1 for all students
+UPDATE student SET mark = mark + 1;
+
+-- Update the 'grade' column to 'O' where the current grade is 'A'
+UPDATE student SET grade = "O" WHERE grade = "A";
+
+
+/********************************************************************
+DELETE QUERIES
+********************************************************************/
+
+-- Delete rows from the 'student' table where the marks are less than 33
+DELETE FROM student WHERE MARKS < 33;
+
+-- Delete all data from the 'student' table (but keep the table structure)
+DELETE FROM student;
+
+
+/********************************************************************
+ALTER TABLE QUERIES
+********************************************************************/
+
+-- Rename the table 'student' to 'new_student'
+ALTER TABLE student RENAME TO new_student;
+
+-- Add a new column 'age' of type INT to the 'student' table
+ALTER TABLE student ADD COLUMN age INT;
+
+-- Remove the 'age' column from the 'student' table
+ALTER TABLE student DROP COLUMN age;
+
+-- Modify the 'id' column to be of type FLOAT and set it as the primary key
+ALTER TABLE student MODIFY id FLOAT PRIMARY KEY;
+
+-- Rename the column 'age' to 'salary', change its data type to FLOAT, and set it as NOT NULL
+ALTER TABLE student CHANGE COLUMN age salary FLOAT NOT NULL;
+
+
+/********************************************************************
+TRUNCATE TABLE QUERIES
+********************************************************************/
+
+-- Remove all data from the 'student' table (faster than DELETE, and resets auto-increment values)
+TRUNCATE TABLE student;
+
+
+/********************************************************************
+JOIN QUERIES
+********************************************************************/
+
+-- Perform an INNER JOIN between 'student' and 'course' tables based on matching names
+SELECT name FROM student INNER JOIN course ON student.name = course.c_name;
+
+-- Perform a LEFT OUTER JOIN between 'student' and 'course', showing all records from the left table
+SELECT name FROM student LEFT JOIN course ON student.name = course.c_name;
+
+-- Perform a RIGHT OUTER JOIN between 'student' and 'course', showing all records from the right table
+SELECT name FROM student RIGHT JOIN course ON student.name = course.c_name;
+
+-- Perform a FULL OUTER JOIN by combining LEFT and RIGHT JOINs
+SELECT name FROM student AS a LEFT JOIN course AS b ON a.id = b.c_id 
+UNION 
+SELECT name FROM student AS a RIGHT JOIN course AS b ON a.id = b.c_id;
+
+-- Perform a LEFT EXCLUSIVE JOIN, selecting rows that only exist in the 'student' table
+SELECT name FROM student AS a LEFT JOIN course AS b ON a.id = b.c_id WHERE b.id IS NULL;
+
+-- Perform a RIGHT EXCLUSIVE JOIN, selecting rows that only exist in the 'course' table
+SELECT name FROM student AS a RIGHT JOIN course AS b ON a.id = b.c_id WHERE a.id IS NULL;
+
+-- Perform a FULL EXCLUSIVE JOIN to select rows that exist in either 'student' or 'course' but not both
+SELECT name FROM student AS a LEFT JOIN course AS b ON a.id = b.c_id WHERE b.id IS NULL 
+UNION 
+SELECT name FROM student AS a RIGHT JOIN course AS b ON a.id = b.c_id WHERE a.id IS NULL;
+
+-- Perform a SELF JOIN on the 'employee' table to find managers and their employees
+SELECT a.name AS manager_name, b.name FROM employee AS a JOIN employee AS b ON a.id = b.manager_id;
+
+
+/********************************************************************
+SUBQUERY QUERIES
+********************************************************************/
+
+-- Select the name and mark of students whose marks are greater than the average mark
+SELECT name, mark FROM student WHERE mark > (SELECT AVG(mark) FROM student);
+
+-- Select names of students with even roll numbers
+SELECT name FROM student WHERE rollno IN (SELECT rollno FROM student WHERE rollno % 2 = 0);
+
+-- Select the maximum mark from a subquery that selects students from 'delhi'
+SELECT MAX(mark) FROM (SELECT * FROM student WHERE city = "delhi") AS temp;
+
+-- Select the maximum mark and corresponding name using a subquery
+SELECT (SELECT MAX(mark) FROM student), name FROM student;
+
+
+/********************************************************************
+VIEW CREATION
+********************************************************************/
+
+-- Create a view named 'v1' that selects 'rollno' and 'name' from the 'student' table
+CREATE VIEW v1 AS SELECT rollno, name FROM student;
+
+-- Select all records from the 'v1' view
+SELECT * FROM v1;
+
