@@ -1,4 +1,4 @@
-# Git Commands Cheat Sheet
+# Useful Commands Cheat Sheet
 
 This repository contains a comprehensive Commands Cheat Sheets that provides an extensive list of useful commands along with practical examples. The cheat sheet is designed to help both beginners and experienced developers in effectively.
 
