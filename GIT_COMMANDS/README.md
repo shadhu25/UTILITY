@@ -9,9 +9,9 @@ This repository contains a comprehensive Git Commands Cheat Sheet that provides 
 
 ## How to Use
 
-1. **Clone this repository**:
+1. **LINK to the Cheate Sheet**:
     ```bash
-    git clone <repository_url>
+    https://github.com/shadhu25/UTILITY/blob/main/GIT_COMMANDS/git-commands.md
     ```
 
 2. **Open the cheat sheet**: 
