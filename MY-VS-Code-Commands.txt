@@ -1,0 +1,36 @@
+VS Code Commands
+  -Ctr + B => open/hide primary side bar
+  -Ctr + Alt + B => open/hide secondary side bar
+  -Ctr + Shift + G => open Git Controller
+  -Ctr + Shift + D => open Debug and Run
+  -Ctr + Shift + P => open Commands Palette
+  -Ctr + Shift + X => open Commands Extensions
+  -Ctr + F => open find window
+  	-Ctr + Alt + Enter => replaces all
+  -Ctr + W => closes the current file
+  -Ctr + K + W => close all files
+  -Ctr + Tab => switching into different files
+  -Ctr + P => search file in the current project
+  -Ctr + left & right => navigate word by word
+  -Ctr + down & up => scroll file up & down
+  -Alt + up & down => move current line in file
+  -Ctr + L => select the current line
+  -Ctr + C + V => duplicate the current line
+  -Ctr + J => open panel(terminal)
+  -Alt + Z => word wrap
+  -F11 => full screen mode
+  -Shift + Alt + up & down => copy current line
+  -Ctr + Shift + \ =>-Ctr + N => new file move cursor bracket to bracket
+  -Ctr + R => open/hide status bar
+  -Ctr + I => open ChatGPT
+  -Ctr + T => open/hide custom title bar
+  -ctr + H => open find window
+  -Ctr + D => select while word
+  -Ctr + \ => split screen
+  -Ctr + Alt + N => advanced new file
+  -Shift + Alt + right arrow(2) => highlight whole content of a HTML tag
+  -ctr + Shift + [ or ] => minimize current code block
+  -ctr + [ or ] => shift(tab) current line 
+  	Commands Palette stuffs
+  => Zen mode -> hide everything and only show code
+  [m,q,e]
